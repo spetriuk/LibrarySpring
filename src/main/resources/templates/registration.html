@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title th:text="#{title.register}">Register</title>
+</head>
+
+<body>
+<nav th:insert="navbar :: navbar"></nav>
+<br>
+
+
+<main>
+    <div class="container" style="margin-top:50px">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div th:text="#{nav.register}" class="card-header">Register</div>
+                    <div class="card-body">
+                        <form name="my-form" action="/registration" th:action="@{/registration}" th:object="${user}" method="post">
+                            <div class="form-group row">
+                                <label th:text="#{reg.nameUkr}" for="nameUkr" class="col-md-4 col-form-label text-md-right">National
+                                    Name</label>
+                                <div class="col-md-6">
+                                    <input th:field="*{nameUkr}" type="text" id="nameUkr" class="form-control" name="national-name">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nameUkr')}" th:errors="*{nameUkr}"></span>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                                <label th:text="#{reg.engName}" for="nameEng" class="col-md-4 col-form-label text-md-right">Eng Name</label>
+                                <div class="col-md-6">
+                                    <input th:field="*{nameEng}" type="text" id="nameEng" class="form-control" name="eng-name">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nameEng')}" th:errors="*{nameEng}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label th:text="#{login.email}" for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+                                <div class="col-md-6">
+                                    <input th:field="*{email}" type="text" id="email" class="form-control" name="email">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label th:text="#{login.password}" for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                <div class="col-md-6">
+                                    <input th:field="*{password}" type="password" id="password" class="form-control">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label th:text="#{reg.phoneNumber}" for="phone" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+                                <div class="col-md-6">
+                                    <input th:field="*{phone}" type="text" id="phone" class="form-control">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                                </div>
+                            </div>
+                            <div th:if="${error}" class="form-group row text-center" role="alert">
+                                <label class="col-md-4 col-form-label text-md-right"></label>
+                                <div th:text="#{reg.error}" class="col-md-6 alert alert-danger ">The email address or phone number you have entered is already registered</div>
+                            </div>
+                            <div class="col-md-6 offset-md-4">
+                                <button th:text="#{reg.button}" type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+</body>
+
+</html>

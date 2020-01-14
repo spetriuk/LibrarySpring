@@ -1,0 +1,26 @@
+!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div th:fragment="sidebaradmin" class="sidebar">
+    <a th:text="#{sidebar.allbooks}" href="/admin/allbooks">All books</a>
+    <a th:text="#{sidebar.addbook}"  href="/admin/addbook">All books</a>
+    <a th:text="#{req.heading}" href="/admin/requests">Book Requests</a>
+    <a th:text="#{sidebar.search}" href="/admin/search">Search</a>
+    <a th:text="#{sidebar.stats}" href="/admin/stats">Statistics</a>
+
+</div>
+
+
+<div th:fragment="sidebaruser" class="sidebar">
+    <a th:text="#{sidebar.allbooks}" href="/user/allbooks">All books</a>
+    <a th:text="#{req.heading}" href="/user/requests">Book Requests</a>
+    <a th:text="#{sidebar.mybooks}" href="/user/mybooks">My Books</a>
+    <a th:text="#{sidebar.search}" href="/user/search">Search</a>
+</div>
+
+</body>
+</html>
