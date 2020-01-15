@@ -4,6 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,8 +27,9 @@ public class Record {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "book_id")
+    @ManyToOne()
+    @Cascade({CascadeType.PERSIST})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
     private LocalDateTime takeDate;
     private LocalDateTime returnDate;

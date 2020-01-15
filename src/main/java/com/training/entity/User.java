@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
@@ -22,24 +23,25 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Email
-    @NotEmpty
+    @Email(message = "{message.email}")
+    @NotEmpty(message = "{message.empty}")
     @Column(name="email",unique=true, nullable = false)
     private String email;
 
-    @NotEmpty
+    @NotEmpty(message = "{message.empty}")
     @Column(name="name_ukr",unique=true, nullable = false)
     private String nameUkr;
 
-    @NotEmpty
+    @NotEmpty(message = "{message.empty}")
     @Column(name="name_eng", nullable = false)
     private String nameEng;
 
-    @NotEmpty
+    @NotEmpty(message = "{message.empty}")
+    @Pattern(regexp = "^\\+?3?8?(0\\d{9})$", message = "{messages.phone}")
     @Column(name="phone", nullable = false)
     private String phone;
 
-    @NotEmpty
+    @NotEmpty(message = "{message.empty}")
     @Column(name="password", nullable = false)
     private String password;
 

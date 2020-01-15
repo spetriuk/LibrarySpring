@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title th:text="#{title.add.author}">Add Author</title>
+</head>
+<style>
+    form{
+        width: 100%;
+    }
+</style>
+<body>
+<nav th:insert="navbar :: usernavbar"></nav>
+
+<div th:insert="sidebar :: sidebaradmin"></div>
+<main class="content">
+    <br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div th:text="#{add.author.new}" class="card-header">Add Author</div>
+                    <div class="card-body">
+                        <form name="my-form" action="/admin/addbook" th:action="@{/admin/addauthor}" th:object="${author}"
+                              method="post">
+                            <div class="form-group">
+                                <label th:text="#{add.author.name.ukr}" for="name2">Author name Ukrainian</label>
+                                <div>
+                                    <input th:field="*{nameUkr}" type="text" id="name2" class="form-control"
+                                           name="name">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nameUkr')}"
+                                          th:errors="*{nameUkr}"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label th:text="#{add.author.name.eng}" for="name">Author name English</label>
+                                <div>
+                                    <input th:field="*{nameEng}" type="text" id="name" class="form-control" name="name">
+                                    <span class="text-danger" th:if="${#fields.hasErrors('nameEng')}"
+                                          th:errors="*{nameEng}"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 offset-md-4">
+                                <button th:text="#{add.add}" type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+</body>
+
+</html>

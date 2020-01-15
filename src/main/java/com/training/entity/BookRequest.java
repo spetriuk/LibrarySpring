@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -20,11 +23,14 @@ public class BookRequest {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(name = "book_id", nullable = false)
-    private Long bookId;
+    @ManyToOne()
+    @Cascade({org.hibernate.annotations.CascadeType.PERSIST})
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Book book;
 
     @Column(name = "request_date")
     private LocalDateTime requestDate;

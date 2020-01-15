@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.Cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
+    <title th:text="#{title.my.books}">My Books</title>
+</head>
+
+<body>
+<nav th:insert="navbar :: usernavbar"></nav>
+
+<div th:insert="sidebar :: sidebaruser"></div>
+
+<main class="content">
+    <br>
+    <div class="container">
+        <div th:switch="${empty}">
+            <div th:case="true">
+                <div th:text="#{list.empty}" class="alert alert-dark" role="alert"></div>
+            </div>
+            <div th:case="false">
+                <table class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th th:text="#{show.book.name}">Book Name</th>
+                        <th th:text="#{show.book.author}">Author</th>
+                        <th th:text="#{show.book.date}">Date</th>
+                        <th th:text="#{show.book.actions}">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:switch="__${#locale.language}__">
+                        <div th:case="uk">
+                            <tr th:each="book: ${books}">
+                                <td th:text="${book.nameUkr}"></td>
+                                <td th:text="${book.authorNameUkr}"></td>
+                                <td th:text="${book.expDate}"></td>
+                                <td class="button-form">
+                                    <form th:action="@{/user/return/{id}(id=${book.id})}" method="get">
+                                        <button type="submit" class="btn btn-warning btn-small">
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </div>
+                        <div th:case="en">
+                            <tr th:each="book: ${books}">
+                                <td th:text="${book.nameEng}"></td>
+                                <td th:text="${book.authorNameEng}"></td>
+                                <td th:text="${book.expDate}"></td>
+                                <td class="button-form">
+                                    <form th:action="@{/user/return/{id}(id=${book.id})}" method="get">
+                                        <button type="submit" class="btn btn-warning btn-small">
+                                            <i class="fa fa-undo" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+</body>
+
+</html>
