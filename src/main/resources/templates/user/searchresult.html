@@ -88,7 +88,7 @@
             <ul class="pagination justify-content-center">
                 <li th:each="pageNumber : ${pageNumbers}" th:classappend="${pageNumber==books.number + 1} ? active"
                     class="page-item">
-                    <a th:href="@{/user/allbooks(page=${pageNumber})}" th:text="${pageNumber}" class="page-link"></a>
+                    <a th:href="@{/user/search(page=${pageNumber})}" th:text="${pageNumber}" class="page-link"></a>
                 </li>
             </ul>
         </nav>
