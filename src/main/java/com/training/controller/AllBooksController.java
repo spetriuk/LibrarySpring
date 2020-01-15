@@ -1,7 +1,6 @@
 package com.training.controller;
-
+import static com.training.controller.Constants.PAGE_SIZE;
 import com.training.dto.ShowBookDTO;
-import com.training.entity.Book;
 import com.training.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,9 +15,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+
 @Controller
 public class AllBooksController {
-    private static final int PAGE_SIZE = 10;
     private BookService bookService;
 
     @Autowired

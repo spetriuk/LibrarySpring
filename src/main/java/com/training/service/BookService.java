@@ -28,24 +28,20 @@ import java.util.Optional;
 @Service
 public class BookService {
     private static final Logger log = LogManager.getLogger();
-
     private BookRepository bookRepository;
-
-    @Autowired
     private BookMapper bookMapper;
+    private AuthorService authorService;
+    private UserService userService;
+    private RecordService recordService;
 
     @Autowired
-    AuthorService authorService;
-
-    @Autowired
-    UserService userService;
-
-    @Autowired RecordService recordService;
-
-
-    @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorService authorService,
+                       UserService userService, RecordService recordService) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
+        this.authorService = authorService;
+        this.userService = userService;
+        this.recordService = recordService;
     }
 
     @Transactional

@@ -9,33 +9,30 @@ import com.training.service.exceptions.NoSuchRequestException;
 import com.training.service.exceptions.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookRequestService {
     private BookRequestRepository bookRequestRepository;
     private BookMapper bookMapper;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private BookService bookService;
-
-    @Autowired RecordService recordService;
+    private RecordService recordService;
 
     @Autowired
-    public BookRequestService(BookRequestRepository bookRequestRepository, BookMapper bookMapper) {
+    public BookRequestService(BookRequestRepository bookRequestRepository, BookMapper bookMapper,
+                              UserService userService, BookService bookService, RecordService recordService) {
         this.bookRequestRepository = bookRequestRepository;
         this.bookMapper = bookMapper;
+        this.userService = userService;
+        this.bookService = bookService;
+        this.recordService = recordService;
     }
 
     @Transactional

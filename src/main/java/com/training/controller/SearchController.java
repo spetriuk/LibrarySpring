@@ -1,5 +1,5 @@
 package com.training.controller;
-
+import static com.training.controller.Constants.PAGE_SIZE;
 import com.training.entity.Book;
 import com.training.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import java.util.stream.IntStream;
 @Controller
 public class SearchController {
 
-    private static final int PAGE_SIZE = 10;
     private BookService bookService;
 
     @InitBinder

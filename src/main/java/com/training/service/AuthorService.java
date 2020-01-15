@@ -14,14 +14,12 @@ import java.util.List;
 @Service
 public class AuthorService {
     private AuthorRepository authorRepository;
-
-
-    @Autowired
     private BookMapper bookMapper;
 
     @Autowired
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, BookMapper bookMapper) {
         this.authorRepository = authorRepository;
+        this.bookMapper = bookMapper;
     }
 
     @Transactional

@@ -18,18 +18,14 @@ import java.util.Optional;
 
 @Service
 public class RecordService {
-
     private RecordRepository recordRepository;
-
-    @Autowired
     private BookMapper bookMapper;
 
     @Autowired
-    private BookService bookService;
-
-    @Autowired
-    public RecordService(RecordRepository recordRepository) {
+    public RecordService(RecordRepository recordRepository,
+                         BookMapper bookMapper) {
         this.recordRepository = recordRepository;
+        this.bookMapper = bookMapper;
     }
 
     public void addRecord(Book book, User user) throws BookNotAvailableException {

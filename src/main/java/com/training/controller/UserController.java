@@ -1,5 +1,7 @@
 package com.training.controller;
 
+import static com.training.controller.Constants.PAGE_SIZE;
+
 import com.training.dto.BookRequestDTO;
 import com.training.dto.ShowBookDTO;
 import com.training.entity.Book;
@@ -27,14 +29,16 @@ import java.util.stream.IntStream;
 
 @Controller
 public class UserController {
-    private static final int PAGE_SIZE = 10;
     private static final Logger log = LogManager.getLogger();
 
-    @Autowired
     private BookRequestService bookRequestService;
+    private BookService bookService;
 
     @Autowired
-    private BookService bookService;
+    public UserController(BookRequestService bookRequestService, BookService bookService) {
+        this.bookRequestService = bookRequestService;
+        this.bookService = bookService;
+    }
 
     @GetMapping(value = "/user/add/{id}")
     public String saveBook(@PathVariable("id") Long id, Model model, Principal principal) {

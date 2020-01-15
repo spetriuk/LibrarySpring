@@ -1,5 +1,5 @@
 package com.training.controller;
-
+import static com.training.controller.Constants.PAGE_SIZE;
 import com.training.dto.*;
 import com.training.service.AuthorService;
 import com.training.service.BookRequestService;
@@ -28,24 +28,21 @@ import java.util.stream.IntStream;
 
 @Controller
 public class AdminController {
-    private static final int PAGE_SIZE = 10;
-
     private static final Logger log = LogManager.getLogger();
 
-    @Autowired
-    private BookMapper bookMapper;
-
-    @Autowired
     private AuthorService authorService;
-
-    @Autowired
     private BookService bookService;
-
-    @Autowired
     private BookRequestService bookRequestService;
+    private RecordService recordService;
 
     @Autowired
-    private RecordService recordService;
+    public AdminController(AuthorService authorService, BookService bookService,
+                           BookRequestService bookRequestService, RecordService recordService) {
+        this.authorService = authorService;
+        this.bookService = bookService;
+        this.bookRequestService = bookRequestService;
+        this.recordService = recordService;
+    }
 
     @GetMapping(value = "/admin/addbook")
     public String addBook(Model model) {

@@ -1,5 +1,5 @@
 package com.training.dto;
-
+import static com.training.controller.Constants.DATE_TIME_FORMAT;
 import com.training.entity.Author;
 import com.training.entity.Book;
 import com.training.entity.BookRequest;
@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
-    String DATE_TIME_FORMAT = "dd MMMM yyyy HH:mm";
 
     @Mapping(target = "authorId", source = "book.author.id")
     BookDTO convertToDto(Book book);
