@@ -4,26 +4,23 @@ import com.training.dto.BookDTO;
 import com.training.dto.BookMapper;
 import com.training.dto.ShowBookDTO;
 import com.training.entity.Book;
-import com.training.entity.User;
 import com.training.repository.BookRepository;
 import com.training.service.exceptions.AuthorNotFoundException;
 import com.training.service.exceptions.BookNotAvailableException;
 import com.training.service.exceptions.UserNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.OptimisticLockException;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -44,7 +41,6 @@ public class BookService {
         this.recordService = recordService;
     }
 
-    @Transactional
     public void addNewBook(BookDTO bookDTO) {
         Book book;
         try {
@@ -65,20 +61,16 @@ public class BookService {
         }
     }
 
-    @Transactional
-    public Optional<Page<ShowBookDTO>> getAllBooks(Pageable pageable){
+    public Page<ShowBookDTO> getAllBooks(Pageable pageable){
         Page<Book> books = bookRepository.findAll(pageable);
-        if (books.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(books.map(bookMapper::convertToShowBookDTO));
+        return books.map(bookMapper::convertToShowBookDTO);
     }
 
-    @Transactional
     public BookDTO getBookDTOById(Long id) throws BookNotAvailableException {
         return bookMapper.convertToDto(bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new));
     }
 
+    @Transactional
     public Book getBookById(Long id) throws BookNotAvailableException {
         return bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new);
     }
@@ -88,7 +80,7 @@ public class BookService {
     }
 
     @Transactional
-    public void editBook(BookDTO bookDTO) throws BookNotAvailableException, AuthorNotFoundException {
+    public void editBook(BookDTO bookDTO) throws BookNotAvailableException, AuthorNotFoundException, OptimisticLockException {
         Book book = bookRepository.findBookById(bookDTO.getId()).orElseThrow(BookNotAvailableException::new);
         if(book.getAvailable()){
             book.setNameUkr(bookDTO.getNameUkr());
@@ -107,18 +99,9 @@ public class BookService {
     }
 
     @Transactional
-    public void setReader(Long bookId, Long userId) throws UserNotFoundException, BookNotAvailableException {
-        Book book = bookRepository.findBookById(bookId).orElseThrow(BookNotAvailableException::new);
-        User user = userService.getUserById(userId);
-        book.setReader(user);
-    }
-
-    public Optional<Page<ShowBookDTO>> getAllBooksByUser(Principal principal, Pageable pageable) throws UserNotFoundException {
+    public Page<ShowBookDTO> getAllBooksByUser(Principal principal, Pageable pageable) throws UserNotFoundException {
         Page<Book> bookPage = bookRepository.findAllByReaderId(userService.getUserByEmail(principal.getName()).getId(), pageable);
-        if(bookPage.isEmpty()){
-            return Optional.empty();
-        }
-        return Optional.of(bookPage.map(bookMapper::convertToShowBookDTO));
+        return bookPage.map(bookMapper::convertToShowBookDTO);
     }
 
     @Transactional
@@ -128,16 +111,14 @@ public class BookService {
         book.setExpDate(null);
         book.setReader(null);
         recordService.addReturnDate(id);
-
     }
 
-    @Transactional
-    public Page<Book> search(Book book, Pageable pageable) {
+    public List<Book> search(Book book) {
         ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
                 .withIgnoreNullValues()
                 .withMatcher("nameUkr", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
                 .withMatcher("nameEng", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
         Example<Book> bookExample = Example.of(book, customExampleMatcher);
-        return bookRepository.findAll(bookExample, pageable);
+        return bookRepository.findAll(bookExample);
     }
 }

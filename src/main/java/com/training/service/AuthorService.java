@@ -22,7 +22,6 @@ public class AuthorService {
         this.bookMapper = bookMapper;
     }
 
-    @Transactional
     public List<AuthorDTO> getAllAuthors() {
         return bookMapper.convertToAuthorDtoList(authorRepository.findAll());
     }

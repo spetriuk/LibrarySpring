@@ -1,5 +1,4 @@
 package com.training.controller;
-
 import com.training.entity.User;
 import com.training.service.UserService;
 import com.training.service.exceptions.UserExistException;

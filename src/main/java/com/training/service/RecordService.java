@@ -28,6 +28,7 @@ public class RecordService {
         this.bookMapper = bookMapper;
     }
 
+    @Transactional
     public void addRecord(Book book, User user) throws BookNotAvailableException {
         Record record = Record.builder()
                 .book(book)
@@ -38,12 +39,8 @@ public class RecordService {
         recordRepository.save(record);
     }
 
-    public Optional<Page<RecordDTO>> getAllRecords(Pageable pageable) {
-        Page<Record> recordPage = recordRepository.findAll(pageable);
-        if (recordPage.isEmpty()){
-            return Optional.empty();
-        }
-        return Optional.of(recordPage.map(bookMapper::convertToRecordDTO));
+    public Page<RecordDTO> getAllRecords(Pageable pageable) {
+        return recordRepository.findAll(pageable).map(bookMapper::convertToRecordDTO);
     }
 
     @Transactional

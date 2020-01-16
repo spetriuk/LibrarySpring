@@ -35,4 +35,6 @@ public class Book {
     @Column(name = "genre", nullable = false)
     @ElementCollection
     private List<Genre> genres;
+    @Version
+    private Long version;
 }

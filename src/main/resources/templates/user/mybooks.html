@@ -22,7 +22,7 @@
 <main class="content">
     <br>
     <div class="container">
-        <div th:switch="${empty}">
+        <div th:switch="${books.empty}">
             <div th:case="true">
                 <div th:text="#{list.empty}" class="alert alert-dark" role="alert"></div>
             </div>
@@ -69,9 +69,33 @@
                     </div>
                     </tbody>
                 </table>
+                <nav th:if="${books.totalPages > 1}">
+                    <ul class="pagination justify-content-center">
+                        <li th:if="${books.hasPrevious()}" class="page-item">
+                            <a th:href="@{/user/mybooks(page=${books.number-1})}" class="page-link">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+
+                        <th:block th:each="i: ${#numbers.sequence(0, books.totalPages - 1)}">
+                            <li th:if="${books.number == i}" class="page-item active"><span
+                                    class="page-link">[[${i}+1]]</span></li>
+                            <li th:unless="${books.number == i}" class="page-item">
+                                <a th:href="@{/user/mybooks(page=${i})}" class="page-link">[[${i}+1]]</a>
+                            </li>
+                        </th:block>
+
+                        <li th:if="${books.hasNext()}" class="page-item">
+                            <a th:href="@{/user/mybooks(page=${books.number+1})}" class="page-link">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-
 
 
     </div>

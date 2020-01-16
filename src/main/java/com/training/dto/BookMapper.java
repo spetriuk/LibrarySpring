@@ -1,5 +1,5 @@
 package com.training.dto;
-import static com.training.controller.Constants.DATE_TIME_FORMAT;
+
 import com.training.entity.Author;
 import com.training.entity.Book;
 import com.training.entity.BookRequest;
@@ -16,11 +16,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
+    String DATE_TIME_FORMAT = "dd MMMM yyyy HH:mm";
 
     @Mapping(target = "authorId", source = "book.author.id")
     BookDTO convertToDto(Book book);
-
-    List<BookDTO> convertToBookDtoList(List<Book> books);
 
     AuthorDTO convertToDto(Author author);
 
@@ -41,7 +40,7 @@ public interface BookMapper {
     @Mapping(target = "nameEng", source = "book.nameEng")
     @Mapping(target = "authorNameUkr", source = "book.author.nameUkr")
     @Mapping(target = "authorNameEng", source = "book.author.nameEng")
-    @Mapping(target = "requestDate",  qualifiedByName = "expDate")
+    @Mapping(target = "requestDate", qualifiedByName = "expDate")
     BookRequestDTO convertToBookRequestDTO(BookRequest bookRequest);
 
     @Mapping(target = "reader", source = "user.email")
@@ -49,16 +48,13 @@ public interface BookMapper {
     @Mapping(target = "nameEng", source = "book.nameEng")
     @Mapping(target = "authorNameUkr", source = "book.author.nameUkr")
     @Mapping(target = "authorNameEng", source = "book.author.nameEng")
-    @Mapping(target = "takeDate",  qualifiedByName = "expDate")
-    @Mapping(target = "returnDate",  qualifiedByName = "expDate")
+    @Mapping(target = "takeDate", qualifiedByName = "expDate")
+    @Mapping(target = "returnDate", qualifiedByName = "expDate")
     RecordDTO convertToRecordDTO(Record record);
 
     @Named("expDate")
     default String dateTimeToString(LocalDateTime expDate) {
-        if (expDate == null) {
-            return null;
-        }
-        return expDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT, LocaleContextHolder.getLocale()));
+        return expDate == null ? "" : expDate.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT, LocaleContextHolder.getLocale()));
     }
 }
 

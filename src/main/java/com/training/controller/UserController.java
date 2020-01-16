@@ -1,10 +1,7 @@
 package com.training.controller;
 
-import static com.training.controller.Constants.PAGE_SIZE;
-
 import com.training.dto.BookRequestDTO;
 import com.training.dto.ShowBookDTO;
-import com.training.entity.Book;
 import com.training.service.BookRequestService;
 import com.training.service.BookService;
 import com.training.service.exceptions.BookNotAvailableException;
@@ -13,19 +10,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class UserController {
@@ -55,23 +48,10 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/requests")
-    public String showRequests(@RequestParam("page") Optional<Integer> page, Model model, Principal principal) {
-        int currentPage = page.orElse(1);
+    public String showRequests(@PageableDefault(sort = "requestDate", direction = Sort.Direction.DESC) Pageable pageable, Model model, Principal principal) {
         try {
-            Optional<Page<BookRequestDTO>> bookRequestDTOPage = bookRequestService.getAllUserRequests(principal, PageRequest.of(currentPage - 1, PAGE_SIZE));
-            if (bookRequestDTOPage.isPresent()) {
-                model.addAttribute("requests", bookRequestDTOPage.get());
-                int totalPages = bookRequestDTOPage.get().getTotalPages();
-                if (totalPages > 0) {
-                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                            .boxed()
-                            .collect(Collectors.toList());
-                    model.addAttribute("pageNumbers", pageNumbers);
-                    model.addAttribute("empty", false);
-                }
-            } else {
-                model.addAttribute("empty", true);
-            }
+            Page<BookRequestDTO> requests = bookRequestService.getAllUserRequests(principal, pageable);
+            model.addAttribute("requests", requests);
         } catch (UserNotFoundException ex) {
             log.error(principal.getName(), ex);
             return "redirect:/user/requests";
@@ -80,23 +60,10 @@ public class UserController {
     }
 
     @GetMapping(value = "user/mybooks")
-    public String showMyBooks(@RequestParam("page") Optional<Integer> page, Model model, Principal principal) {
+    public String showMyBooks(@PageableDefault(sort = "expDate", direction = Sort.Direction.DESC) Pageable pageable, Model model, Principal principal) {
         try {
-            int currentPage = page.orElse(1);
-            Optional<Page<ShowBookDTO>> bookDTOS = bookService.getAllBooksByUser(principal, PageRequest.of(currentPage - 1, PAGE_SIZE));
-            if(bookDTOS.isPresent()){
-                model.addAttribute("books", bookDTOS.get());
-                int totalPages = bookDTOS.get().getTotalPages();
-                if (totalPages > 0) {
-                    List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                            .boxed()
-                            .collect(Collectors.toList());
-                    model.addAttribute("pageNumbers", pageNumbers);
-                    model.addAttribute("empty", false);
-                }
-            } else {
-                model.addAttribute("empty", true);
-            }
+            Page<ShowBookDTO> books = bookService.getAllBooksByUser(principal, pageable);
+            model.addAttribute("books", books);
         } catch (UserNotFoundException ex) {
             log.error(principal.getName(), ex);
             return "redirect:/user/mybooks";

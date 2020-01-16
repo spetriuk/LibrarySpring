@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class BookRequestService {
@@ -47,13 +46,9 @@ public class BookRequestService {
     }
 
     @Transactional
-    public Optional<Page<BookRequestDTO>> getAllUserRequests(Principal principal, Pageable pageable) throws UserNotFoundException {
-        Page<BookRequest> bookRequests = bookRequestRepository
-                .findAllByUserId(userService.getUserByEmail(principal.getName()).getId(), pageable);
-        if(bookRequests.isEmpty()){
-            return Optional.empty();
-        }
-        return Optional.of(bookRequests.map(bookMapper::convertToBookRequestDTO));
+    public Page<BookRequestDTO> getAllUserRequests(Principal principal, Pageable pageable) throws UserNotFoundException {
+             return bookRequestRepository.findAllByUserId(userService.getUserByEmail(principal.getName()).getId(), pageable)
+                     .map(bookMapper::convertToBookRequestDTO);
     }
 
     @Transactional
@@ -70,12 +65,7 @@ public class BookRequestService {
         }
     }
 
-    @Transactional
-    public Optional<Page<BookRequestDTO>> getAllRequests(Pageable pageable) {
-        Page<BookRequest> bookRequests = bookRequestRepository.findAll(pageable);
-        if (bookRequests.isEmpty()) {
-            return  Optional.empty();
-        }
-        return Optional.of(bookRequests.map(bookMapper::convertToBookRequestDTO));
+    public Page<BookRequestDTO> getAllRequests(Pageable pageable) {
+        return bookRequestRepository.findAll(pageable).map(bookMapper::convertToBookRequestDTO);
     }
 }
