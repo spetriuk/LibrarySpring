@@ -9,11 +9,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title  th:text="#{title.add.book}">Add Book</title>
+    <title th:text="#{title.add.book}">Add Book</title>
 </head>
 
 <style>
-    form{
+    form {
         width: 100%;
     }
 </style>
@@ -49,43 +49,25 @@
                                           th:errors="*{nameEng}"></span>
                                 </div>
                             </div>
-
-                            <div th:switch="__${#locale.language}__">
-                                <div th:case="uk">
-                                    <div class="form-group">
-                                        <label th:text="#{add.book.author}">Book author</label>
-                                        <select class="form-control" th:field="*{authorId}">
-                                            <option th:each="value : ${authors}"
-                                                    th:value="${value.id}"
-                                                    th:text="${value.nameUkr}">
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div th:case="en">
-                                    <div class="form-group">
-                                        <label th:text="#{add.book.author}">Book author</label>
-                                        <select class="form-control" th:field="*{authorId}">
-                                            <option th:each="value : ${authors}"
-                                                    th:value="${value.id}"
-                                                    th:text="${value.nameEng}">
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label th:text="#{add.book.author}">Book author</label>
+                                <select class="form-control" th:field="*{authorId}">
+                                    <option th:each="value : ${authors}"
+                                            th:value="${value.id}"
+                                            th:text="${value.name}">
+                                    </option>
+                                </select>
                             </div>
-
                             <div class="form-group">
                                 <a class="btn btn-secondary" th:href="@{/admin/addauthor}">
                                     <span th:text="#{add.author.new}"></span>
                                 </a>
                             </div>
 
-
                             <fieldset class="form-group">
                                 <div class="row">
                                     <div th:text="#{add.book.genre}" class="col-form-label col-sm-2 pt-0">Genres</div>
-                                   <br>
+                                    <br>
                                     <div class="col-sm-10">
                                         <div class="form-check"
                                              th:each="value : ${T(com.training.entity.Genre).values()}">

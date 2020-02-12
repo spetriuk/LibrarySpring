@@ -12,10 +12,8 @@ import lombok.NoArgsConstructor;
 public class BookRequestDTO {
     private Long id;
     private String userEmail;
-    private String nameUkr;
-    private String nameEng;
-    private String authorNameUkr;
-    private String authorNameEng;
+    private String name;
+    private String authorName;
     private String requestDate;
     private Boolean approved;
 }

@@ -4,6 +4,7 @@ import com.training.dto.AuthorDTO;
 import com.training.dto.BookDTO;
 import com.training.dto.BookRequestDTO;
 import com.training.dto.RecordDTO;
+import com.training.entity.Author;
 import com.training.service.AuthorService;
 import com.training.service.BookRequestService;
 import com.training.service.BookService;
@@ -75,7 +76,7 @@ public class AdminController {
         return "/admin/edit";
     }
 
-    @PostMapping(value = "/admin/edit/{id}")
+    @PostMapping(value = "/admin/edit")
     public String saveBook(@Valid @ModelAttribute("book") BookDTO book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("authors", authorService.getAllAuthors());
@@ -102,12 +103,12 @@ public class AdminController {
 
     @GetMapping(value = "/admin/addauthor")
     public String addAuthor(Model model) {
-        model.addAttribute("author", new AuthorDTO());
+        model.addAttribute("author", new Author());
         return "/admin/addauthor";
     }
 
     @PostMapping(value = "/admin/addauthor")
-    public String addAuthor(@Valid @ModelAttribute("author") AuthorDTO author, BindingResult bindingResult, Model model) {
+    public String addAuthor(@Valid @ModelAttribute("author") Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "/admin/addauthor";
         }
@@ -139,14 +140,5 @@ public class AdminController {
         model.addAttribute("stats", records);
         return "/admin/stats";
     }
-
-
-  /*
-    @Transactional
-    void putBookAndAuthors(Model model, Long id) throws BookNotAvailableException {
-        model.addAttribute("book", bookService.getBookDTOById(id));
-        model.addAttribute("authors", authorService.getAllAuthors());
-    }*/
-
 
 }

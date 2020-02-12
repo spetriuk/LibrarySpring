@@ -29,25 +29,11 @@
                             <tbody>
                             <tr>
                                 <td th:text="#{show.book.name}">Book name</td>
-                                <div th:switch="__${#locale.language}__">
-                                    <div th:case="uk">
-                                        <td th:text="${book.nameUkr}"></td>
-                                    </div>
-                                    <div th:case="en">
-                                        <td th:text="${book.nameEng}"></td>
-                                    </div>
-                                </div>
+                                <td th:text="${book.name}"></td>
                             </tr>
                             <tr>
                                 <td th:text="#{add.book.author}">Book author</td>
-                                <div th:switch="__${#locale.language}__">
-                                    <div th:case="uk">
-                                        <td th:text="${book.authorNameUkr}"></td>
-                                    </div>
-                                    <div th:case="en">
-                                        <td th:text="${book.authorNameEng}"></td>
-                                    </div>
-                                </div>
+                                <td th:text="${book.authorName}"></td>
                             </tr>
                             <tr>
                                 <td th:text="#{add.book.genre}">Book genres</td>

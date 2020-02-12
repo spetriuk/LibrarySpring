@@ -1,6 +1,5 @@
 package com.training.service;
 
-import com.training.dto.BookMapper;
 import com.training.dto.BookRequestDTO;
 import com.training.entity.BookRequest;
 import com.training.repository.BookRequestRepository;
@@ -19,16 +18,16 @@ import java.time.LocalDateTime;
 @Service
 public class BookRequestService {
     private BookRequestRepository bookRequestRepository;
-    private BookMapper bookMapper;
+    private DtoConversionService dtoConversionService;
     private UserService userService;
     private BookService bookService;
     private RecordService recordService;
 
     @Autowired
-    public BookRequestService(BookRequestRepository bookRequestRepository, BookMapper bookMapper,
+    public BookRequestService(BookRequestRepository bookRequestRepository, DtoConversionService dtoConversionService,
                               UserService userService, BookService bookService, RecordService recordService) {
         this.bookRequestRepository = bookRequestRepository;
-        this.bookMapper = bookMapper;
+        this.dtoConversionService = dtoConversionService;
         this.userService = userService;
         this.bookService = bookService;
         this.recordService = recordService;
@@ -48,7 +47,7 @@ public class BookRequestService {
     @Transactional
     public Page<BookRequestDTO> getAllUserRequests(Principal principal, Pageable pageable) throws UserNotFoundException {
              return bookRequestRepository.findAllByUserId(userService.getUserByEmail(principal.getName()).getId(), pageable)
-                     .map(bookMapper::convertToBookRequestDTO);
+                     .map(dtoConversionService::convertToBookRequestDTO);
     }
 
     @Transactional
@@ -66,6 +65,6 @@ public class BookRequestService {
     }
 
     public Page<BookRequestDTO> getAllRequests(Pageable pageable) {
-        return bookRequestRepository.findAll(pageable).map(bookMapper::convertToBookRequestDTO);
+        return bookRequestRepository.findAll(pageable).map(dtoConversionService::convertToBookRequestDTO);
     }
 }

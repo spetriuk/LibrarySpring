@@ -1,6 +1,5 @@
 package com.training.service;
 
-import com.training.dto.BookMapper;
 import com.training.dto.RecordDTO;
 import com.training.entity.Book;
 import com.training.entity.Record;
@@ -19,14 +18,14 @@ import java.util.Optional;
 @Service
 public class RecordService {
     private RecordRepository recordRepository;
-    private BookMapper bookMapper;
+    private DtoConversionService dtoConversionService;
 
     @Autowired
-    public RecordService(RecordRepository recordRepository,
-                         BookMapper bookMapper) {
+    public RecordService(RecordRepository recordRepository, DtoConversionService dtoConversionService) {
         this.recordRepository = recordRepository;
-        this.bookMapper = bookMapper;
+        this.dtoConversionService = dtoConversionService;
     }
+
 
     @Transactional
     public void addRecord(Book book, User user) throws BookNotAvailableException {
@@ -40,7 +39,7 @@ public class RecordService {
     }
 
     public Page<RecordDTO> getAllRecords(Pageable pageable) {
-        return recordRepository.findAll(pageable).map(bookMapper::convertToRecordDTO);
+        return recordRepository.findAll(pageable).map(dtoConversionService::convertToRecordDTO);
     }
 
     @Transactional

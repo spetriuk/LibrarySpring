@@ -14,10 +14,8 @@ import java.util.List;
 @Builder
 public class ShowBookDTO {
     private Long id;
-    private String nameUkr;
-    private String nameEng;
-    private String authorNameUkr;
-    private String authorNameEng;
+    private String name;
+    private String authorName;
     private String expDate;
     private Boolean available;
     private List<Genre> genres;

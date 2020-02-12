@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RecordDTO {
-    private String nameUkr;
-    private String nameEng;
-    private String authorNameUkr;
-    private String authorNameEng;
+    private String name;
+    private String authorName;
     private String reader;
     private String takeDate;
     private String returnDate;

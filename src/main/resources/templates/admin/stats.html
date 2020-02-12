@@ -36,26 +36,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <div th:switch="__${#locale.language}__">
-                        <div th:case="uk">
-                            <tr th:each="stat: ${stats}">
-                                <td th:text="${stat.nameUkr}"></td>
-                                <td th:text="${stat.authorNameUkr}"></td>
-                                <td th:text="${stat.reader}"></td>
-                                <td th:text="${stat.takeDate}"></td>
-                                <td th:text="${stat.returnDate}"></td>
-                            </tr>
-                        </div>
-                        <div th:case="en">
-                            <tr th:each="stat: ${stats}">
-                                <td th:text="${stat.nameEng}"></td>
-                                <td th:text="${stat.authorNameEng}"></td>
-                                <td th:text="${stat.reader}"></td>
-                                <td th:text="${stat.takeDate}"></td>
-                                <td th:text="${stat.returnDate}"></td>
-                            </tr>
-                        </div>
-                    </div>
+                    <tr th:each="stat: ${stats}">
+                        <td th:text="${stat.name}"></td>
+                        <td th:text="${stat.authorName}"></td>
+                        <td th:text="${stat.reader}"></td>
+                        <td th:text="${stat.takeDate}"></td>
+                        <td th:text="${stat.returnDate}"></td>
+                    </tr>
                     </tbody>
                 </table>
                 <nav th:if="${stats.totalPages > 1}">

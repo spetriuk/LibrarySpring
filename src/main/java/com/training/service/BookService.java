@@ -1,7 +1,6 @@
 package com.training.service;
 
 import com.training.dto.BookDTO;
-import com.training.dto.BookMapper;
 import com.training.dto.ShowBookDTO;
 import com.training.entity.Book;
 import com.training.repository.BookRepository;
@@ -26,19 +25,19 @@ import java.util.List;
 public class BookService {
     private static final Logger log = LogManager.getLogger();
     private BookRepository bookRepository;
-    private BookMapper bookMapper;
     private AuthorService authorService;
     private UserService userService;
     private RecordService recordService;
+    private DtoConversionService dtoConversionService;
 
     @Autowired
-    public BookService(BookRepository bookRepository, BookMapper bookMapper, AuthorService authorService,
-                       UserService userService, RecordService recordService) {
+    public BookService(BookRepository bookRepository, AuthorService authorService, UserService userService,
+                       RecordService recordService, DtoConversionService dtoConversionService) {
         this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
         this.authorService = authorService;
         this.userService = userService;
         this.recordService = recordService;
+        this.dtoConversionService = dtoConversionService;
     }
 
     public void addNewBook(BookDTO bookDTO) {
@@ -63,11 +62,11 @@ public class BookService {
 
     public Page<ShowBookDTO> getAllBooks(Pageable pageable){
         Page<Book> books = bookRepository.findAll(pageable);
-        return books.map(bookMapper::convertToShowBookDTO);
+        return books.map(dtoConversionService::convertToShowBookDTO);
     }
 
     public BookDTO getBookDTOById(Long id) throws BookNotAvailableException {
-        return bookMapper.convertToDto(bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new));
+        return dtoConversionService.convertToBookDto(bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new));
     }
 
     @Transactional
@@ -76,7 +75,7 @@ public class BookService {
     }
 
     public ShowBookDTO getBookInfoById(Long id) throws BookNotAvailableException {
-        return bookMapper.convertToShowBookDTO(bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new));
+        return dtoConversionService.convertToShowBookDTO(bookRepository.findBookById(id).orElseThrow(BookNotAvailableException::new));
     }
 
     @Transactional
@@ -101,7 +100,7 @@ public class BookService {
     @Transactional
     public Page<ShowBookDTO> getAllBooksByUser(Principal principal, Pageable pageable) throws UserNotFoundException {
         Page<Book> bookPage = bookRepository.findAllByReaderId(userService.getUserByEmail(principal.getName()).getId(), pageable);
-        return bookPage.map(bookMapper::convertToShowBookDTO);
+        return bookPage.map(dtoConversionService::convertToShowBookDTO);
     }
 
     @Transactional

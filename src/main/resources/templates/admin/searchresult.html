@@ -71,7 +71,7 @@
                         <div th:case="en">
                             <tr th:each="book: ${books}">
                                 <td th:text="${book.nameEng}"></td>
-                                <td th:text="${book.Author.nameEng}"></td>
+                                <td th:text="${book.author.nameEng}"></td>
                                 <td>
                                     <th:block th:each="genre, i: ${book.genres}">
                                         <span th:text="#{${'genre.' + genre}} + (${i.size-1 > i.index}? ',':'')"></span>

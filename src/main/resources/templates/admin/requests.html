@@ -40,104 +40,52 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <div th:switch="__${#locale.language}__">
-                        <div th:case="uk">
-                            <tr th:each="req: ${requests}">
-                                <td th:text="${req.userEmail}"></td>
-                                <td th:text="${req.nameUkr}"></td>
-                                <td th:text="${req.authorNameUkr}"></td>
-                                <td th:text="${req.requestDate}"></td>
-                                <td>
-                                    <th:block th:switch="${req.approved}">
-                                        <div th:case="null"><span class="text-info" th:text="#{req.status.new}"></span>
-                                        </div>
-                                        <div th:case="true"><span class="text-success"
-                                                                  th:text="#{req.status.accepted}"></span>
-                                        </div>
-                                        <div th:case="false"><span class="text-danger"
-                                                                   th:text="#{req.status.declined}"></span>
-                                        </div>
-                                    </th:block>
-                                </td>
-                                <td>
-                                    <th:block th:switch="${req.approved}">
-                                        <div th:case="null" class="button-form">
-                                            <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
-                                                  method="post">
-                                                <input type="hidden" name="action" th:id="action" th:value="true">
-                                                <button type="submit" class="btn btn-success btn-small">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
+                    <tr th:each="req: ${requests}">
+                        <td th:text="${req.userEmail}"></td>
+                        <td th:text="${req.name}"></td>
+                        <td th:text="${req.authorName}"></td>
+                        <td th:text="${req.requestDate}"></td>
+                        <td>
+                            <th:block th:switch="${req.approved}">
+                                <div th:case="null"><span class="text-info" th:text="#{req.status.new}"></span>
+                                </div>
+                                <div th:case="true"><span class="text-success"
+                                                          th:text="#{req.status.accepted}"></span>
+                                </div>
+                                <div th:case="false"><span class="text-danger"
+                                                           th:text="#{req.status.declined}"></span>
+                                </div>
+                            </th:block>
+                        </td>
+                        <td>
+                            <th:block th:switch="${req.approved}">
+                                <div th:case="null" class="button-form">
+                                    <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
+                                          method="post">
+                                        <input type="hidden" name="action" th:id="action" th:value="true">
+                                        <button type="submit" class="btn btn-success btn-small">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    </form>
 
-                                            <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
-                                                  method="post">
-                                                <input type="hidden" name="action" th:id="action" th:value="false">
-                                                <button type="submit" class="btn btn-danger btn-small">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div th:case="true">
-                                            <span class="text-muted" th:text="#{req.action.no}"></span>
-                                        </div>
-                                        <div th:case="false">
-                                            <span class="text-muted" th:text="#{req.action.no}"></span>
-                                        </div>
-                                    </th:block>
+                                    <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
+                                          method="post">
+                                        <input type="hidden" name="action" th:id="action" th:value="false">
+                                        <button type="submit" class="btn btn-danger btn-small">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div th:case="true">
+                                    <span class="text-muted" th:text="#{req.action.no}"></span>
+                                </div>
+                                <div th:case="false">
+                                    <span class="text-muted" th:text="#{req.action.no}"></span>
+                                </div>
+                            </th:block>
 
-                                </td>
-                            </tr>
-                        </div>
-                        <div th:case="en">
-                            <tr th:each="req: ${requests}">
-                                <td th:text="${req.userEmail}"></td>
-                                <td th:text="${req.nameEng}"></td>
-                                <td th:text="${req.authorNameEng}"></td>
-                                <td th:text="${req.requestDate}"></td>
-                                <td>
-                                    <th:block th:switch="${req.approved}">
-                                        <div th:case="null"><span class="text-info" th:text="#{req.status.new}"></span>
-                                        </div>
-                                        <div th:case="true"><span class="text-success"
-                                                                  th:text="#{req.status.accepted}"></span>
-                                        </div>
-                                        <div th:case="false"><span class="text-danger"
-                                                                   th:text="#{req.status.declined}"></span>
-                                        </div>
-                                    </th:block>
-                                </td>
-                                <td>
-                                    <th:block th:switch="${req.approved}">
-                                        <div th:case="null" class="button-form">
-                                            <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
-                                                  method="post">
-                                                <input type="hidden" name="action" th:id="action" th:value="true">
-                                                <button type="submit" class="btn btn-success btn-small">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                            </form>
-
-                                            <form th:action="@{/admin/approve/{id}(id=${req.id})}" th:object="${action}"
-                                                  method="post">
-                                                <input type="hidden" name="action" th:id="action" th:value="false">
-                                                <button type="submit" class="btn btn-danger btn-small">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div th:case="true">
-                                            <span class="text-muted" th:text="#{req.action.no}"></span>
-                                        </div>
-                                        <div th:case="false">
-                                            <span class="text-muted" th:text="#{req.action.no}"></span>
-                                        </div>
-                                    </th:block>
-
-                                </td>
-                            </tr>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
 
