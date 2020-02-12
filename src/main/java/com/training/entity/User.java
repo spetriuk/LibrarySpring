@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "user", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone"})})
+@Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone"})})
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)

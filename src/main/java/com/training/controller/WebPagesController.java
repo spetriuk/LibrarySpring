@@ -3,6 +3,7 @@ import com.training.entity.User;
 import com.training.service.UserService;
 import com.training.service.exceptions.UserExistException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ public class WebPagesController {
 
     @GetMapping("/")
     public String index() {
+        String locale = LocaleContextHolder.getLocale().getLanguage();
         return "index";
     }
 
