@@ -15,9 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class BookDTO {
+    //TODO Move to properties
+    public static final String CYRILLIC_REGEX = "^[\\p{InCyrillic}\\s]+$";
     private Long id;
     @NotEmpty(message = "{message.empty}")
-    @Pattern(regexp = "^[\\p{InCyrillic}\\s]+$", message = "{message.cyrillic}")
+    @Pattern(regexp = CYRILLIC_REGEX, message = "{message.cyrillic}")
     private String nameUkr;
     @NotEmpty(message = "{message.empty}")
     private String nameEng;

@@ -18,6 +18,8 @@ import java.util.List;
 @Entity
 @Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone"})})
 public class User {
+    //TODO move to props
+    public static final String REGEX_PHONE = "^\\+?3?8?(0\\d{9})$";
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
@@ -37,7 +39,7 @@ public class User {
     private String nameEng;
 
     @NotEmpty(message = "{message.empty}")
-    @Pattern(regexp = "^\\+?3?8?(0\\d{9})$", message = "{messages.phone}")
+    @Pattern(regexp = REGEX_PHONE, message = "{messages.phone}")
     @Column(name="phone", nullable = false)
     private String phone;
 

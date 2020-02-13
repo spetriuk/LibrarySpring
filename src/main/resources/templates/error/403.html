@@ -4,10 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome/css/all.css"/>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 
     <title>403</title>
@@ -17,19 +16,20 @@
 
 <main>
     <br>
-<div style="min-height: 80vh" class="d-flex flex-row align-items-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center">
-                <span class="display-1 d-block">403</span>
-                <div th:text="#{error.forbidden}" class="mb-4 lead"></div>
-                <a th:text="#{error.home}" href="/" class="button"></a>
+    <div style="min-height: 80vh" class="d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <span class="display-1 d-block">403</span>
+                    <div th:text="#{error.forbidden}" class="mb-4 lead"></div>
+                    <a th:text="#{error.home}" href="/" class="button"></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </main>
-
+<script src="/js/jquery-3.2.1.slim.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 
 </html>
