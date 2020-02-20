@@ -2,7 +2,7 @@ package com.training.util;
 
 public class Constants {
     public static final String REGEX_PHONE = "^\\+?3?8?(0\\d{9})$";
-    public static final String REGEX_PASSWORD = "(?=.*[0-9])(?=.*[a-z])(?=\\\\S+$).{8,}";
+    public static final String REGEX_PASSWORD = "(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{8,}";
     public static final String CYRILLIC_REGEX = "^[\\p{InCyrillic}\\s]+$";
     public static final String ENGLISH_REGEX = "^[a-zA-Z0-9$@$!%*?&#^-_. +]+$";
 
