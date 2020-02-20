@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+import static com.training.util.Constants.*;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,33 +20,32 @@ import java.util.List;
 @Entity
 @Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone"})})
 public class User {
-    //TODO move to props
-    public static final String REGEX_PHONE = "^\\+?3?8?(0\\d{9})$";
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Email(message = "{message.email}")
-    @NotEmpty(message = "{message.empty}")
+    @Email(message = MESSAGE_EMAIL)
+    @NotEmpty(message = MESSAGE_EMPTY)
     @Column(name="email",unique=true, nullable = false)
     private String email;
 
-    @NotEmpty(message = "{message.empty}")
+    @NotEmpty(message = MESSAGE_EMPTY)
     @Column(name="name_ukr",unique=true, nullable = false)
     private String nameUkr;
 
-    @NotEmpty(message = "{message.empty}")
+    @NotEmpty(message = MESSAGE_EMPTY)
     @Column(name="name_eng", nullable = false)
     private String nameEng;
 
-    @NotEmpty(message = "{message.empty}")
-    @Pattern(regexp = REGEX_PHONE, message = "{messages.phone}")
+    @NotEmpty(message = MESSAGE_EMPTY)
+    @Pattern(regexp = REGEX_PHONE, message = MESSAGE_PHONE)
     @Column(name="phone", nullable = false)
     private String phone;
 
-    @NotEmpty(message = "{message.empty}")
+    @NotEmpty(message = MESSAGE_EMPTY)
     @Column(name="password", nullable = false)
+    @Pattern(regexp = REGEX_PASSWORD, message = MESSAGE_PASSWORD)
     private String password;
 
     @OneToMany(mappedBy = "reader")

@@ -10,21 +10,22 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
+import static com.training.util.Constants.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class BookDTO {
-    //TODO Move to properties
-    public static final String CYRILLIC_REGEX = "^[\\p{InCyrillic}\\s]+$";
     private Long id;
-    @NotEmpty(message = "{message.empty}")
-    @Pattern(regexp = CYRILLIC_REGEX, message = "{message.cyrillic}")
+    @NotEmpty(message = MESSAGE_EMPTY)
+    @Pattern(regexp = CYRILLIC_REGEX, message = MESSAGE_CYRILLIC)
     private String nameUkr;
-    @NotEmpty(message = "{message.empty}")
+    @NotEmpty(message = MESSAGE_EMPTY)
+    @Pattern(regexp = ENGLISH_REGEX, message = MESSAGE_ENGLISH)
     private String nameEng;
     private Boolean available;
     private Long authorId;
-    @NotEmpty(message = "{message.empty}")
+    @NotEmpty(message = MESSAGE_EMPTY)
     private List<Genre> genres;
 }
