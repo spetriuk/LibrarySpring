@@ -9,3 +9,16 @@
 
 Є можливіть пошуку книг за автором або назвою.
 
+Requirements:
+1. DB - MySql
+2. Java version up 8.
+3. Maven
+
+How to install:
+1. Clone project
+2. Run libraryDB_dump.sql from resources/scripts folder
+3. Run in terminal commands: 
+- mvn clean install
+- mvn spring-boot:run
+6. Go to link localhost:8088
+
