@@ -48,6 +48,13 @@ form {
     width: 40px;
 }
 
+.jumbotron {
+    background-image: url("https://grademiners.com/wp-content/uploads/2017/07/essay-about-books.jpg");
+    /*https://grademiners.com/wp-content/uploads/2017/07/essay-about-books.jpg*/
+    background-size: cover;
+    height: 700px;
+}
+
 @media screen and (max-width: 700px) {
     .sidebar {
         width: 100%;
