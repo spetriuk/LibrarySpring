@@ -18,33 +18,33 @@ import static com.training.util.Constants.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"email", "phone"})})
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email", "phone"})})
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @Email(message = MESSAGE_EMAIL)
     @NotEmpty(message = MESSAGE_EMPTY)
-    @Column(name="email",unique=true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @NotEmpty(message = MESSAGE_EMPTY)
-    @Column(name="name_ukr",unique=true, nullable = false)
+    @Column(name = "name_ukr", unique = true, nullable = false)
     private String nameUkr;
 
     @NotEmpty(message = MESSAGE_EMPTY)
-    @Column(name="name_eng", nullable = false)
+    @Column(name = "name_eng", nullable = false)
     private String nameEng;
 
     @NotEmpty(message = MESSAGE_EMPTY)
     @Pattern(regexp = REGEX_PHONE, message = MESSAGE_PHONE)
-    @Column(name="phone", nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone;
 
     @NotEmpty(message = MESSAGE_EMPTY)
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     @Pattern(regexp = REGEX_PASSWORD, message = MESSAGE_PASSWORD)
     private String password;
 

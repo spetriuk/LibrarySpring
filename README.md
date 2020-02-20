@@ -16,9 +16,10 @@ Requirements:
 
 How to install:
 1. Clone project
-2. Run libraryDB_dump.sql from resources/scripts folder
-3. Run in terminal commands: 
+2. Enter your database settings to application.properties
+3. Run libraryDB_dump.sql from resources/scripts folder
+4. Run in terminal commands: 
 - mvn clean install
 - mvn spring-boot:run
-6. Go to link localhost:8088
+5. Go to link localhost:8088
 

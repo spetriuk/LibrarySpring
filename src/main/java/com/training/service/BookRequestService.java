@@ -46,17 +46,17 @@ public class BookRequestService {
 
     @Transactional
     public Page<BookRequestDTO> getAllUserRequests(Principal principal, Pageable pageable) throws UserNotFoundException {
-             return bookRequestRepository.findAllByUserId(userService.getUserByEmail(principal.getName()).getId(), pageable)
-                     .map(dtoConversionService::convertToBookRequestDTO);
+        return bookRequestRepository.findAllByUserId(userService.getUserByEmail(principal.getName()).getId(), pageable)
+                .map(dtoConversionService::convertToBookRequestDTO);
     }
 
     @Transactional
     public void processRequest(Long id, Boolean action) throws NoSuchRequestException, BookNotAvailableException {
         BookRequest bookRequest = bookRequestRepository.findById(id).orElseThrow(NoSuchRequestException::new);
         bookRequest.setApproved(action);
-        if(action){
+        if (action) {
             bookRequestRepository.findAllByBookIdAndApprovedIsNull(bookRequest.getBook().getId())
-                    .forEach(req->req.setApproved(false));
+                    .forEach(req -> req.setApproved(false));
             bookRequest.getBook().setReader(bookRequest.getUser());
             bookRequest.getBook().setExpDate(LocalDateTime.now().plusMonths(1L));
             bookRequest.getBook().setAvailable(false);

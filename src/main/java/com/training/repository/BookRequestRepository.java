@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface BookRequestRepository extends JpaRepository<BookRequest, Long> {
     Page<BookRequest> findAllByUserId(Long id, Pageable pageable);
+
     List<BookRequest> findAllByBookIdAndApprovedIsNull(Long id);
+
     Optional<BookRequest> findById(Long id);
 }

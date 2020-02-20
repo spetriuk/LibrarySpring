@@ -26,7 +26,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userRepository.save(user);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             throw new UserExistException();
         }
     }

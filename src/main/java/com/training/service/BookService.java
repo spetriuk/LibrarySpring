@@ -60,7 +60,7 @@ public class BookService {
         }
     }
 
-    public Page<ShowBookDTO> getAllBooks(Pageable pageable){
+    public Page<ShowBookDTO> getAllBooks(Pageable pageable) {
         Page<Book> books = bookRepository.findAll(pageable);
         return books.map(dtoConversionService::convertToShowBookDTO);
     }
@@ -81,7 +81,7 @@ public class BookService {
     @Transactional
     public void editBook(BookDTO bookDTO) throws BookNotAvailableException, AuthorNotFoundException, OptimisticLockException {
         Book book = bookRepository.findBookById(bookDTO.getId()).orElseThrow(BookNotAvailableException::new);
-        if(book.getAvailable()){
+        if (book.getAvailable()) {
             book.setNameUkr(bookDTO.getNameUkr());
             book.setNameEng(bookDTO.getNameEng());
             book.setGenres(bookDTO.getGenres());

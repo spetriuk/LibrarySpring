@@ -31,8 +31,8 @@
 
 }
 
-.container, .sidebar{
-    margin-top:50px;
+.container, .sidebar {
+    margin-top: 50px;
 }
 
 form {
@@ -61,8 +61,14 @@ form {
         height: auto;
         position: relative;
     }
-    .sidebar a {float: left;}
-    .content {margin-left: 0;}
+
+    .sidebar a {
+        float: left;
+    }
+
+    .content {
+        margin-left: 0;
+    }
 }
 
 @media screen and (max-width: 400px) {

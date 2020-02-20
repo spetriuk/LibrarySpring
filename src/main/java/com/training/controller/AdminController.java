@@ -1,6 +1,5 @@
 package com.training.controller;
 
-import com.training.dto.AuthorDTO;
 import com.training.dto.BookDTO;
 import com.training.dto.BookRequestDTO;
 import com.training.dto.RecordDTO;
